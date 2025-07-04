@@ -1,23 +1,21 @@
 import json
 
-name = input("Ismingizni kiriting: ")
-surname = input("Familiyangizni kiriting: ")
+name = input('ism kiriting : ')
+surname = input('familiya kiriting : ')
+age = int(input('yosh kiriting : '))
 
-while True:
-    age_input = input("Yoshingizni kiriting: ")
-    if age_input.isdigit():
-        age = int(age_input)
-        break
-    else:
-        print("Iltimos, yoshni butun son sifatida kiriting.")
+new_dict = {
+    'name':name,
+    'surname':surname,
+    'age':age
+}
 
-with open('students.json', 'r', encoding='utf-8') as f:
-    students = json.load(f)
+with open('students.json','r') as f1:
+    students_str = f1.read()
+    students = json.loads(students_str)
+    students.append(new_dict)
+    
+students_dump = json.dumps(students,indent = 4)
 
-new_student = {"name": name, "surname": surname, "age": age}
-students.append(new_student)
-
-with open('students.json', 'w', encoding='utf-8') as f:
-    json.dump(students, f, ensure_ascii=False, indent=4)
-
-print("Yangi talaba ma'lumotlari faylga yozildi.")
+with open('students.json','w') as f2:
+    f2.write(students_dump)
